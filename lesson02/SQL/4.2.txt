@@ -1,0 +1,97 @@
+mysql> SELECT film id,film,year FROM film WHERE year>2000;
+ 
++----------------+----------------+------+
+| id             | film           | year |
++----------------+----------------+------+
+| good_film      | good_film      | 2018 |
+| horror_film    | horror_film    | 2004 |
+| fantastic_film | fantastic_film | 2008 |
++----------------+----------------+------+
+3 rows in set
+
+mysql> SELECT film_id,film,year FROM film WHERE film LIKE 'a%
+'; 
++---------+------------------+------+
+| film_id | film             | year |
++---------+------------------+------+
+|       4 | a_fantastic_film | 2008 |
++---------+------------------+------+
+1 row in set
+
+mysql> SELECT film_id,film,year FROM film WHERE film LIKE '%
+a%'; 
++---------+------------------+------+
+| film_id | film             | year |
++---------+------------------+------+
+|       1 | sad_film         | 1996 |
+|       4 | a_fantastic_film | 2008 |
+|       5 | documental_film  | 1985 |
++---------+------------------+------+
+3 rows in set
+
+mysql> SELECT *
+ FROM film WHERE film LIKE '%a%'; 
++------------------+---------+------+
+| film             | film_id | year |
++------------------+---------+------+
+| sad_film         |       1 | 1996 |
+| a_fantastic_film |       4 | 2008 |
+| documental_film  |       5 | 1985 |
++------------------+---------+------+
+3 rows in set
+
+mysql> SELECT * FROM film WHERE film LIKE '%a%' AND year<2000
+; 
++-----------------+---------+------+
+| film            | film_id | year |
++-----------------+---------+------+
+| sad_film        |       1 | 1996 |
+| documental_film |       5 | 1985 |
++-----------------+---------+------+
+2 rows in set
+
+mysql> SELECT * FROM film WHERE film LIKE '%a%' OR
+ year<2000; 
++------------------+---------+------+
+| film             | film_id | year |
++------------------+---------+------+
+| sad_film         |       1 | 1996 |
+| a_fantastic_film |       4 | 2008 |
+| documental_film  |       5 | 1985 |
++------------------+---------+------+
+3 rows in set
+
+mysql> SELECT film.film, creators.surname
+ FROM film INNER JOIN creators ON film.crid=creators.id;
++------------------+-----------+
+| film             | surname   |
++------------------+-----------+
+| sad_film         | Johnson   |
+| good_film        | Sidorov   |
+| horror_film      | Ivanenko  |
+| a_fantastic_film | Konovalov |
+| documental_film  | unknown   |
++------------------+-----------+
+5 rows in set
+mysql> SELECT film.film, creators.surname FROM film INNER JOIN creators ON film.c=creators.f;
+1054 - Unknown column 'film.c' in 'on clause'
+mysql> SELECT film.film FROM film INNER JOIN creators ON film.crid=creators.id WHERE surname like '%a
+%';
++------------------+
+| film             |
++------------------+
+| horror_film      |
+| a_fantastic_film |
++------------------+
+2 rows in set
+mysql> SELECT film.film, styles.style  FROM film INNER JOIN filmsstyles ON film.film_id=filmsstyles.films INNER JOIN styles ON filmsstyles.styles=styles.style_id
+;
++-----------------+--------+
+| film            | style  |
++-----------------+--------+
+| sad_film        | drama  |
+| sad_film        | horror |
+| documental_film | drama  |
++-----------------+--------+
+3 rows in set
+
