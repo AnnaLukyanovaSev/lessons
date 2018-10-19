@@ -3,51 +3,26 @@
 class Basket
 {
     /**
-     * @var array $id
-     * @var array $price
-     * @var array $name
-     * @var array $discount
+     * @var array $shopList
      */
-    public $id;
-    public $price;
-    public $name;
-    public $discount;
-
-    /**
-     * @var array $totalPrice ;
-     */
-    public $totalPrice = [];
-    /**
-     * @var float $sum
-     */
-    public $sum;
-    /**
-     * @var float $finSum
-     */
-    public $finSum;
+    public $shopList;
 
     /**
      * Basket constructor.
-     * @param array $id
-     * @param array $name
-     * @param array $price
-     * @param array $discount
+     * @param array $shopList
      */
-    public function __construct(array $id = [], array $name = [], array $price = [], array $discount = [])
+    public function __construct(array $shopList = [[], [], [], [], []])
     {
-        $this->id = $id;
-        $this->name = $name;
-        $this->price = $price;
-        $this->discount = $discount;
+        $this->shopList = $shopList;
     }
 
     public function addToBasket(array $row)
     {
-        array_push($this->id, $row[0]);
-        array_push($this->name, $row[1]);
-        array_push($this->price, $row[2]);
-        array_push($this->discount, $row[3]);
-        array_push($this->totalPrice, ((100 - $row[3]) / 100 * $row[2]));
+        array_push($this->shopList[0], $row[0]);
+        array_push($this->shopList[1], $row[1]);
+        array_push($this->shopList[2], $row[2]);
+        array_push($this->shopList[3], $row[3]);
+        array_push($this->shopList[4], (100 - $row[3]) / 100 * $row[2]);
     }
 
     public function saveBasket()
